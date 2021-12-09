@@ -4,65 +4,60 @@ const router = express.Router();
 const { check, validationResult,body} = require('express-validator');
 
 
+const anuncioController = require('../Controllers/Anuncio.Controller');
+const usuarioController = require('../Controllers/Usuario.Controllers');
+
 const usuarioModel = require('../models/usuario');
 const anuncioModel = require('../models/anuncio');
 
 //Rotas da API
 
 //verifica se existe um usuario com um dado username e dada senha
-router.post('/usuario/check',[body('username').trim().escape(),body('email').trim().escape(),
-body('password').trim().escape(),body('nomecompleto').trim().escape(),body('cnh').trim().escape()],async (req,res)=>{
-    await usuarioModel.find({username:req.body.username,password:req.body.password},(err,results)=>{
-        if(err)res.send("Nao existe nenhum usuário com esse username e senha.");
-        else res.send(results);
-    });
-});
+router.post('/usuario/check',[body('username').trim().escape(),
+body('password').trim().escape()],usuarioController.checkUsuario);
+
+//verifica se existe um usuario com um dado username(usado no momento do cadastro para verificar
+//a disponibilidade do username)
+router.get("/usuario/:username",usuarioController.checkUsername);
+
+//rota para criar um usuario
+router.post("/usuario",[body('username').trim().escape(),
+body('email').trim().escape(),body('password').trim().escape(),
+body('nomecompleto').trim().escape(),body('cnh').trim().escape()],
+usuarioController.criaUsuario);
+
+
+
 
 //retorna todos os anuncios
-router.get('/anuncio', async (req,res)=>{
-    try{
-    const results = await anuncioModel.find();
-    res.send(results);
-    }catch(err)
-    {
-        res.status(400).send(err);
-    }
-});
+router.get('/anuncio', anuncioController.pegaTodosAnuncios);
 
 //retorna todos os anuncios de um usuario
-router.get("/anuncio/:username",async (req,res)=>{
-    try{
-        const results = await anuncioModel.find({username:req.params.username});
-        res.send(results);
-    }catch(err)
-    {
-        res.status(400);send(err);
-    }
+router.get("/anuncio/:username",anuncioController.pegaAnunciosUsuario);
 
-});
 
 //cria um anuncio
 router.post('/anuncio',[body('username').trim().escape(),body('placa').trim().escape(),
 body('marca').trim().escape(),body('modelo').trim().escape(),body('cambio').trim().escape(),body('versao').trim().escape(),
 body('tipocombustivel').trim().escape(),body('tipocarro').trim().escape(),body('cor').trim().escape(),
-body('opcionais').trim().escape()],async (req,res)=>{
+body('opcionais').trim().escape(),body('titulo').trim().escape(),body('descricao').trim().escape()],
+anuncioController.criaAnuncio);
 
-    try{
-        let d = req.body;
-        const anuncio = new anuncioModel({username:d.username,
-        placa:d.placa,marca:d.marca,modelo:d.modelo,cambio:d.cambio,ano:d.ano,
-    versao:d.versao,tipocombustivel:d.tipocombustivel,
-    potenciamotor:d.potenciamotor,tipocarro:d.tipocarro,
-    quilometragem:d.quilometragem,quantidadeportas:d.quantidadeportas,
-    cor:d.cor,precoaluguel:d.precoaluguel,qtddias:d.qtddias,
-    opcionais:d.opcionais});
-        await anuncio.save();
-        res.send("Anuncio adicionado");
-    }catch(err)
-    {
-        res.status(400).send(err);
-    }
-});
+
+//deleta um anuncio
+router.delete("/anuncio",anuncioController.deletaAnuncio);
+
+//att um anuncio
+router.put("/anuncio",anuncioController.attAnuncio);
+
+//abre ou fecha anuncio
+
+router.put("/anuncio/abre",anuncioController.abrefechaAnuncio);
+
+
+//salva uma imagem na nuvem utilizando o serviço cloudinary
+router.post('/anuncio/imagem',anuncioController.salvaImagem);
+
 
 
 

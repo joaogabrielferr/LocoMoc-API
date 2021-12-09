@@ -65,6 +65,29 @@ const anuncioSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    foto:{
+        type:String,
+    },
+    titulo:{
+        type:String,
+        required:true
+    },
+    descricao:{
+        type:String,
+        required:true
+    },
+    cidade:{
+        type:String,
+        required:true,
+    },
+    estado:{
+        type:String,
+        required:true,
+    },
+    aberto:{
+        type:Boolean,
+        required:true
+    }
 });
 
 const anuncio = mongoose.model("Anuncio",anuncioSchema);
