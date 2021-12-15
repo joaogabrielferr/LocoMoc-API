@@ -6,9 +6,16 @@ const { check, validationResult,body} = require('express-validator');
 
 const anuncioController = require('../Controllers/Anuncio.Controller');
 const usuarioController = require('../Controllers/Usuario.Controllers');
+const solicitacaoController = require('../Controllers/Solicitacao.Controller');
+const chatController = require("../Controllers/Chat.Controller");
+const mensagemController = require("../Controllers/Mensagem.Controller");
 
 const usuarioModel = require('../models/usuario');
 const anuncioModel = require('../models/anuncio');
+const solicitacaoModel = require('../models/solicitacao');
+const chatModel = require("../models/chat");
+const mensagemModel = require("../models/mensagem");
+
 
 //Rotas da API
 
@@ -59,7 +66,21 @@ router.put("/anuncio/abre",anuncioController.abrefechaAnuncio);
 router.post('/anuncio/imagem',anuncioController.salvaImagem);
 
 
+router.post('/solicitacao',solicitacaoController.enviaSolicitacao);
+
+router.delete('/solicitacao',solicitacaoController.deletaSolicitacao);
+
+router.post('/solicitacao/enviadas',solicitacaoController.pegaSolicitacoesEnviadas);
+
+router.post('/solicitacao/recebidas',solicitacaoController.pegaSolicitacoesRecebidas);
 
 
+router.post("/chat",chatController.criaChat);
+
+router.post("/chat/todos",chatController.pegaChats);
+
+router.post("/mensagem",mensagemController.criaMensagem);
+
+router.post("/mensagem/todos",mensagemController.pegaMensagens);
 
 module.exports = router;

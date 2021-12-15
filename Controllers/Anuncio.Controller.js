@@ -19,7 +19,7 @@ cloudinary.config({
 
 const pegaTodosAnuncios = async (req,res)=>{
     try{
-    const results = await anuncioModel.find().clone().catch(function(err){ console.log(err)});;
+    const results = await anuncioModel.find().clone().catch(function(err){ console.log(err)});
     res.send(results);
     }catch(err)
     {
@@ -29,7 +29,7 @@ const pegaTodosAnuncios = async (req,res)=>{
 
 const pegaAnunciosUsuario = async (req,res)=>{
     try{
-        const results = await anuncioModel.find({username:req.params.username}).clone().catch(function(err){ console.log(err)});;
+        const results = await anuncioModel.find({username:req.params.username}).clone().catch(function(err){ console.log(err)});
         res.send(results);
     }catch(err)
     {
