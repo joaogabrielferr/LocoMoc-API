@@ -74,6 +74,7 @@ router.post('/solicitacao/enviadas',solicitacaoController.pegaSolicitacoesEnviad
 
 router.post('/solicitacao/recebidas',solicitacaoController.pegaSolicitacoesRecebidas);
 
+router.post('/solicitacao/responder',solicitacaoController.responder);
 
 router.post("/chat",chatController.criaChat);
 

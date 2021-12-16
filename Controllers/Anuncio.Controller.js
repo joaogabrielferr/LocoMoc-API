@@ -90,31 +90,31 @@ const attAnuncio = async (req,res) =>{
         let d = req.body;
         const anuncionovo = {
 
-            username:d.username,
-            placa:d.placa,
-            marca:d.marca,
-            modelo:d.modelo,
-            cambio:d.cambio,
-            ano:d.ano,
-            versao:d.versao,
-            tipocombustivel:d.tipocombustivel,
-            potenciamotor:d.potenciamotor,
-            tipocarro:d.tipocarro,
-            quilometragem:d.quilometragem,
-            quantidadeportas:d.quantidadeportas,
-            cor:d.cor,
-            precoaluguel:d.precoaluguel,
-            qtddias:d.qtddias,
-            opcionais:d.opcionais,
-            foto:d.foto,
-            titulo:d.titulo,
-            descricao:d.descricao,
-            cidade:d.cidade,
-            estado:d.estado,
-            aberto:d.aberto
+            "username":d.username,
+            "placa":d.placa,
+            "marca":d.marca,
+            "modelo":d.modelo,
+            "cambio":d.cambio,
+            "ano":d.ano,
+            "versao":d.versao,
+            "tipocombustivel":d.tipocombustivel,
+            "potenciamotor":d.potenciamotor,
+            "tipocarro":d.tipocarro,
+            "quilometragem":d.quilometragem,
+            "quantidadeportas":d.quantidadeportas,
+            "cor":d.cor,
+            "precoaluguel":d.precoaluguel,
+            "qtddias":d.qtddias,
+            "opcionais":d.opcionais,
+            "foto":d.foto,
+            "titulo":d.titulo,
+            "descricao":d.descricao,
+            "cidade":d.cidade,
+            "estado":d.estado,
+            "aberto":d.aberto
         }
 
-        await anuncioModel.updateOne({_id:d.id},{$set:anuncionovo});
+        await anuncioModel.updateOne({"_id":d.id},{$set:anuncionovo});
         res.status(200).send("Anuncio atualizado");
 
     }catch(err)

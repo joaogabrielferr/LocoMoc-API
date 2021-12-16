@@ -64,9 +64,23 @@ const pegaSolicitacoesRecebidas = async (req,res) =>{
     }
 }
 
+const responder = async (req,res) =>{
+
+    try{
+
+    await solicitacaoModel.updateOne({"_id":req.body.id},{$set:{"respondido":true}});
+    res.send("solicitacao atualizada");
+    }catch(err)
+    {
+        res.status(400).send(err);
+    }
+
+}
+
 
 
 module.exports.enviaSolicitacao = enviaSolicitacao;
 module.exports.deletaSolicitacao = deletaSolicitacao;
 module.exports.pegaSolicitacoesEnviadas = pegaSolicitacoesEnviadas;
 module.exports.pegaSolicitacoesRecebidas = pegaSolicitacoesRecebidas;
+module.exports.responder = responder;
